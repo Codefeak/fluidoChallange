@@ -1,3 +1,6 @@
+.main-container {
+    height: 60vh;
+}
 .product-list-container {
     width: 200px;
     display: flex;
@@ -13,19 +16,13 @@
 
 .product-img {
     height: 100px;
-    width: 100px;
+    width: 150px;
+    object-fit: contain;
 }
 
 .product-title {
     text-align: center;
     font-size: 14px;
-}
-
-.product-name {
-    width: 100%;
-    text-align: center;
-    font-size: 10px;
-    font-weight: 600;
 }
 
 .product-price {
