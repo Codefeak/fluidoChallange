@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 // import getProducts from '@salesforce/apex/ProductController.getProducts';
-
+import viewAllProducts from '@salesforce/apex/ProductLists.viewAllProducts';
 export default class Filter extends LightningElement {
     @api products;
     error;
@@ -12,17 +12,19 @@ export default class Filter extends LightningElement {
         price: 0
     }
 
-    connectedCallback()
-    {this.productListQuery()};
+    // connectedCallback()
+    // {this.productListQuery()};
 
-    productListQuery() {
-        getProducts(this.filters).then(result => {
-            this.products = results;
-        }).catch(error => this.error = error);
-    }
+    // productListQuery() {
+    //     // getProducts(this.filters).then(result => {
+    //     //     this.products = results;
+    //     // }).catch(error => this.error = error);
+    //     viewAllProducts().then(result => {
+    //         this.products = results;
+    //     }).catch(err => this.error = err);
+    // }
 
     get brandOptions() {
-
         return [
             {label: 'abc', value: 'abc'},
             {label: 'dkeo', value: 'dkeo'},
@@ -39,7 +41,7 @@ export default class Filter extends LightningElement {
 
     handleBrandChange(e) {
         this.brand = e.target.value;
-        this.filters.brand = e.target.value;
+        // this.filters.brand = e.target.value;
     }
 
     // handleSearchByNameChange(e) {
