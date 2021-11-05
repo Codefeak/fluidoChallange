@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>category__c</fullName>
+    <externalId>false</externalId>
+    <label>category</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>hiking</fullName>
+                <default>false</default>
+                <label>hiking</label>
+            </value>
+            <value>
+                <fullName>indoor</fullName>
+                <default>false</default>
+                <label>indoor</label>
+            </value>
+            <value>
+                <fullName>outdoor</fullName>
+                <default>false</default>
+                <label>outdoor</label>
+            </value>
+            <value>
+                <fullName>running</fullName>
+                <default>false</default>
+                <label>running</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
