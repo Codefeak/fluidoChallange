@@ -1,6 +1,6 @@
-.custom-modal_container{
-    height: unset;
-    padding: 0;
+.custom-modal_container {
+  height: unset;
+  padding: 0;
   box-shadow: 0px 0px 20px 1px #969696;
-    -webkit-box-shadow: 0px 0px 20px 1px #969696;
+  -webkit-box-shadow: 0px 0px 20px 1px #969696;
 }
