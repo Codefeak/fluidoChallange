@@ -1,12 +1,11 @@
 import { LightningElement, api } from 'lwc';
-import {NavigationMixin} from 'lightning/navigation';
 // import getProducts from '@salesforce/apex/ProductController.getProducts';
 
-export default class ProductList extends NavigationMixin(LightningElement) {
+export default class ProductList extends LightningElement {
     @api productsFromParent;
 
-    handleOnClick() {
-        alert("button pressed")
+    handleOnClick(e) {
+        const productId = e.currentTarget.dataset.value;
+        this.dispatchEvent(new CustomEvent('productclicked', {detail: productId}));
     }
-
 }

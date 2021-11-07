@@ -1,14 +1,17 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import getProducts from '@salesforce/apex/ProductController.getProducts';
 
 export default class Filter extends LightningElement {
     error;
-    price = 0;
+    price = 1000;
     brand= [''];
     size;
     filters = {
         searchKey: ''
     }
+
+    isModalOpen = false;
+    clickedProductId;
     
     connectedCallback()
     {this.productListQuery(this.filters)};
@@ -18,6 +21,17 @@ export default class Filter extends LightningElement {
         getProducts({filters: filters}).then(result=> {
             this.products = result.records;
         }).catch(error => this.error = error);
+    }
+
+    clickedProduct;
+    handleClickedProduct(e) {
+        const clickedProductId = e.detail;
+        this.products.forEach(item => {
+            if (item.Id === clickedProductId) {
+                this.clickedProduct = item;
+                this.isModalOpen = !this.isModalOpen;
+            }
+        });
     }
 
     get brandOptions() {
@@ -56,19 +70,11 @@ export default class Filter extends LightningElement {
         ]
     }
 
-    get products() {
-        return this.products;
-    }
-
     get selectedBrandValues () {
         const result = this.brand.map(i => {
             return {label: i, value: i}
         });
         return result;
-    }
-
-    get isModalOpen() {
-        return false;
     }
 
     handleBrandChange(e) {
@@ -95,6 +101,17 @@ export default class Filter extends LightningElement {
         this.size = e.detail.value;
         this.filters.size = e.detail.value;
         this.productListQuery(this.filters);
+    }
+    
+
+    openModal() {
+        this.isModalOpen = true;
+    }
+    closeModal() {
+        this.isModalOpen = false;
+    }
+    submitDetails() {
+        this.isModalOpen = false;
     }
 
 }

@@ -4,7 +4,7 @@
         <lightning-layout horizontal-align="space" multiple-rows="true">
             <template for:each={productsFromParent} for:item="product">
                 <lightning-layout-item key={product.Id} padding="around-small" alignment-bump="right">
-                    <a onclick={handleOnClick}>
+                    <a data-value={product.Id} onclick={handleOnClick}>
                         <div class="product-list-container">
                             <lightning-card variant="wide">
                                 <img
