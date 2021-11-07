@@ -14,7 +14,7 @@
     border: 1px solid #00000033;
 }
 
-.product-img {
+.product-img-thumb {
     height: 100px;
     width: 150px;
     object-fit: contain;

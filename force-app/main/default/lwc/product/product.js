@@ -22,7 +22,7 @@ export default class Product extends LightningElement {
         this.name = value.Name;
         this.price = value.price__c;
         this.category = value.category__c;
-        this.width = value.width__c;
+        this.width = value.width__c.slice(0,1);
         this.heelHeight = value.heelHeight__c;
         this.gender = value.gender__c;
         this.brand = value.brand__c;

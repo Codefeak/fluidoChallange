@@ -3,28 +3,47 @@
     <div class="content">
         <img
             src={imageUrl}
-            class="product slds-align_absolute-center"
+            class="product-image slds-align_absolute-center"
             alt="product image"
         />
         <div>
-            <p class="title slds-align_absolute-center">{name}</p>
-            <p class="title slds-align_absolute-center">
-                price:&nbsp;
+            <p class="slds-text-title_caps slds-text-heading_medium slds-align_absolute-left">{name}</p>
+            <p class="slds-text-heading_large slds-align_absolute-left">
                 <lightning-formatted-number
-                        format-style="currency"
-                        currency-code="EUR"
-                        value={price}
-                        class="price"
-                        maximum-fraction-digits="0"
-                    ></lightning-formatted-number>
+                format-style="currency"
+                currency-code="EUR"
+                value={price}
+                class="price"
+                maximum-fraction-digits="0"
+                ></lightning-formatted-number>
             </p>
-            <p class="title slds-align_absolute-center">{brand}</p>
-            <p class="title slds-align_absolute-center">{category}</p>
-            <p class="title slds-align_absolute-center">{width}</p>
-            <p class="title slds-align_absolute-center">{color}</p>
-            <p class="title slds-align_absolute-center">{size}</p>
-            <p class="title slds-align_absolute-center">{heelHeight}</p>
-            
+            <hr/>
+            <div class="slds-grid slds-wrap">
+                <p class="slds-col slds-size_1-of-2 slds-align_absolute-left slds-m-vertical_x-small">
+                    <span class="slds-item_label slds-text-color_weak">Brand: </span>
+                    <span class="slds-m-left_large">{brand} (#{category})</span>
+                </p>
+                <p class="slds-col slds-size_1-of-2 slds-align_absolute-left slds-m-vertical_x-small">
+                    <span class="slds-item_label slds-text-color_weak">Width: </span>
+                    <span class="slds-text-title_caps slds-m-left_large">{width}</span>
+                </p>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <p class="slds-col slds-size_1-of-2 slds-align_absolute-left slds-m-vertical_x-small">
+                    <span class="slds-item_label slds-text-color_weak">Color: </span>
+                    <span class="slds-m-left_large">{color}</span>
+                </p>
+                <p class="slds-col slds-size_1-of-2 slds-align_absolute-left slds-m-vertical_x-small">
+                    <span class="slds-item_label slds-text-color_weak">Available Size: </span>
+                    <span class="slds-m-left_large">{size}</span>
+                </p>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <p class="slds-col slds-size_1-of-2 slds-align_absolute-left slds-m-vertical_x-small">
+                    <span class="slds-item_label slds-text-color_weak">Heel Height: </span>
+                    <span class="slds-m-left_large">{heelHeight}</span>
+                </p>
+            </div>
         </div>
     </div>
 </template>
