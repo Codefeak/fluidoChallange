@@ -5,60 +5,15 @@
   </div>
   <lightning-layout>
     <lightning-layout-item size="3" padding="around-medium">
-      <lightning-card variant="Narrow" title="Filters: ">
-        <div class="slds-var-m-horizontal_medium">
-          <lightning-layout multiple-rows="true">
-            <lightning-layout-item size="12">
-              <lightning-input
-                label="Search by keywords"
-                type="search"
-                onchange={handleSearchByNameChange}
-              ></lightning-input>
-            </lightning-layout-item>
-            <lightning-layout-item size="12">
-              <lightning-slider
-                label="Maximum Price"
-                value={price}
-                max="1000"
-                onchange={handleOnPriceChange}
-              ></lightning-slider>
-            </lightning-layout-item>
-            <lightning-layout-item size="12">
-              <lightning-checkbox-group
-                name="brand"
-                label="By Brand"
-                variant="standard"
-                options={brandOptions}
-                value={brand}
-                onchange={handleBrandChange}
-              >
-              </lightning-checkbox-group>
-              <div>
-                <template
-                  for:each={selectedBrandValues}
-                  for:item="selectedBrandValue"
-                >
-                  <lightning-badge
-                    key={selectedBrandValue.value}
-                    label={selectedBrandValue.label}
-                    >{selectedBrandValue.label}</lightning-badge
-                  >
-                </template>
-              </div>
-            </lightning-layout-item>
-            <lightning-layout-item size="12">
-              <lightning-combobox
-                name="size"
-                label="By Size"
-                value={size}
-                placeholder="Select Size"
-                options={sizeOptions}
-                onchange={handleOnSizeChange}
-              ></lightning-combobox>
-            </lightning-layout-item>
-          </lightning-layout>
-        </div>
-      </lightning-card>
+      <c-filter
+        price={price}
+        brand={brand}
+        size={size}
+        onclickbrandchange={handleBrandChange}
+        onsearchbynamechange={handleSearchByNameChange}
+        onpricechange={handleOnPriceChange}
+        onsizechange={handleOnSizeChange}
+      ></c-filter>
     </lightning-layout-item>
     <lightning-layout-item size="9" padding="around-medium">
       <c-product-list
