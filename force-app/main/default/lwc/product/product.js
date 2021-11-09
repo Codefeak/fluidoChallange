@@ -29,9 +29,4 @@ export default class Product extends LightningElement {
     this.size = value.size__c;
     this.color = value.color__c;
   }
-
-  handleOnClick() {
-    console.log("i reached here");
-    console.log(this.productFromParent.imageUrl__c);
-  }
 }

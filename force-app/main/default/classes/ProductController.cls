@@ -23,7 +23,6 @@ public class ProductController {
 
   @AuraEnabled
   public static PagedResult getProducts(Filters filters) {
-    system.debug(filters);
     Integer pageNumber = 1;
     String key, size, whereClause = '';
     Decimal price, heelHeight;

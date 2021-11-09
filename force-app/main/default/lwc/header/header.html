@@ -1,12 +1,39 @@
+<!-- sldsValidatorIgnore -->
 <template>
-  <lightning-layout multiple-rows="true">
-    <lightning-layout-item padding="around-small" size="12">
-      <svg xmlns="http://www.w3.org/2000/svg" height="100" width="300">
+  <div class="slds-grid">
+    <div class="slds-col slds-size_11-of-12">
+      <svg xmlns="http://www.w3.org/2000/svg" height="120" width="500">
         <image href={svgURL}></image>
       </svg>
-    </lightning-layout-item>
-    <lightning-layout-item size="12">
-      <div style="background-color: black; height: 6px"></div>
-    </lightning-layout-item>
-  </lightning-layout>
+    </div>
+    <div
+      class="
+        slds-col
+        slds-size_1-of-12
+        slds-float_right
+        slds-align_absolute-center
+      "
+    >
+      <template if:true={isCartOpen}>
+        <lightning-button-icon
+          icon-name="standard:products"
+          alternative-text="Product List"
+          class="slds-m-left_small"
+          size="medium"
+          title="Product List"
+          onclick={handleCartClick}
+        ></lightning-button-icon>
+      </template>
+      <template if:false={isCartOpen}>
+        <lightning-button-icon
+          icon-name="standard:webcart"
+          alternative-text="View Cart"
+          class="slds-m-left_small"
+          size="medium"
+          title="View Cart"
+          onclick={handleCartClick}
+        ></lightning-button-icon>
+      </template>
+    </div>
+  </div>
 </template>

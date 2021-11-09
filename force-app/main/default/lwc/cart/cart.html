@@ -1,0 +1,155 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <div class="slds-modal__content">
+    <div class="slds-grid slds-grid_vertical">
+      <div
+        class="slds-grid slds-wrap slds-border_bottom slds-p-vertical_x-small"
+      >
+        <div
+          class="
+            slds-grid slds-wrap slds-col
+            slds-size_8-of-12
+            slds-medium-size_8-of-12
+            slds-large-size_8-of-12
+            slds-p-horizontal_medium
+          "
+        >
+          <strong>Product</strong>
+        </div>
+        <div
+          class="
+            slds-col
+            slds-size_2-of-12
+            slds-medium-size_2-of-12
+            slds-large-size_2-of-12
+            slds-align_absolute-center
+          "
+        >
+          <strong> QTY </strong>
+        </div>
+        <div
+          class="
+            slds-col
+            slds-size_2-of-12
+            slds-medium-size_2-of-12
+            slds-large-size_2-of-12
+            slds-align_absolute-center
+          "
+        >
+          <strong> AMT </strong>
+        </div>
+      </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical">
+      <template for:each={cartItemFromParent} for:item="product">
+        <a
+          key={product.Id}
+          data-value={product.orderLineItemId}
+          onclick={handleOnClick}
+        >
+          <div class="slds-grid slds-wrap slds-gutters slds-p-vertical_x-small">
+            <div
+              class="
+                slds-grid slds-wrap slds-col
+                slds-size_8-of-12
+                slds-medium-size_8-of-12
+                slds-large-size_8-of-12
+                slds-p-horizontal_medium
+              "
+            >
+              <img
+                src={product.imageUrl__c}
+                class="
+                  slds-col
+                  slds-size_4-of-12
+                  slds-medium-size_1-of-12
+                  slds-large-size_1-of-12
+                  slds-avatar slds-avatar_large
+                  slds-align_absolute-center
+                "
+                alt="Product picture"
+              />
+              <h3
+                class="
+                  slds-col
+                  slds-size_8-of-12
+                  slds-medium-size_11-of-12
+                  slds-large-size_11-of-12
+                  slds-p-horizontal_xx-small
+                  slds-align_absolute-center
+                "
+              >
+                {product.Name}
+              </h3>
+            </div>
+            <div
+              class="
+                slds-col
+                slds-size_2-of-12
+                slds-medium-size_2-of-12
+                slds-large-size_2-of-12
+                slds-align_absolute-center
+              "
+            >
+              QTY
+            </div>
+            <div
+              class="
+                slds-col
+                slds-size_2-of-12
+                slds-medium-size_2-of-12
+                slds-large-size_2-of-12
+                slds-align_absolute-center
+              "
+            >
+              <lightning-formatted-number
+                format-style="currency"
+                currency-code="EUR"
+                value={product.price__c}
+                class="price"
+                maximum-fraction-digits="0"
+              ></lightning-formatted-number>
+            </div>
+          </div>
+        </a>
+      </template>
+    </div>
+    <div class="slds-grid slds-grid_vertical">
+      <div
+        class="slds-grid slds-wrap slds-border_bottom slds-p-vertical_x-small"
+      >
+        <div
+          class="
+            slds-grid slds-wrap slds-col
+            slds-size_8-of-12
+            slds-medium-size_8-of-12
+            slds-large-size_8-of-12
+            slds-p-horizontal_medium
+          "
+        ></div>
+        <div
+          class="
+            slds-col
+            slds-size_2-of-12
+            slds-medium-size_2-of-12
+            slds-large-size_2-of-12
+            slds-align_absolute-center
+          "
+        >
+          <strong>Total amount</strong>
+        </div>
+        <div
+          class="
+            slds-col
+            slds-size_2-of-12
+            slds-medium-size_2-of-12
+            slds-large-size_2-of-12
+            slds-align_absolute-center
+          "
+        >
+          <strong> Total € </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
