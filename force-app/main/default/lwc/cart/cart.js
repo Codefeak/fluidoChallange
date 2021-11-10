@@ -5,7 +5,7 @@ export default class Cart extends LightningElement {
 
   handleOnClick(e) {
     const orderLineItemId = e.currentTarget.dataset.value;
-    const productId = this.cartItemFromParent.find(
+    const productId = this.cartItemFromParent.records.find(
       (i) => i.orderLineItemId === orderLineItemId
     ).Id;
     this.dispatchEvent(
@@ -13,5 +13,18 @@ export default class Cart extends LightningElement {
         detail: { Id: productId, orderLineItemId: orderLineItemId }
       })
     );
+  }
+
+  handleOnClickDelete(e) {
+    const orderLineItemId = e.currentTarget.dataset.value;
+    this.dispatchEvent(
+      new CustomEvent("removefromcart", {
+        detail: { orderLineItemId: orderLineItemId }
+      })
+    );
+  }
+
+  handleMakeOrder() {
+    this.dispatchEvent(new CustomEvent("makeorder"));
   }
 }

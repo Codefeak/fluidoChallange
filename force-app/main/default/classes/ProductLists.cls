@@ -15,7 +15,7 @@ public class ProductLists {
         size__c,
         imageUrl__c
       FROM CustomProduct__c
-      LIMIT 1000
+      LIMIT 100
     ];
     return listOfProducts;
   }

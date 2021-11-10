@@ -3,7 +3,7 @@ import getProducts from "@salesforce/apex/ProductController.getProducts";
 import getOrderItems from "@salesforce/apex/OrderController.getOrderItems";
 import deleteOrderItems from "@salesforce/apex/OrderController.deleteOrderItems";
 import addOrderItems from "@salesforce/apex/OrderController.addOrderItems";
-
+import createNewOrder from "@salesforce/apex/OrderController.createNewOrder";
 export default class Main extends LightningElement {
   error;
   price = 1000;
@@ -38,9 +38,17 @@ export default class Main extends LightningElement {
           const foundProduct = this.products.find(
             (ele) => ele.Id === item.CustomProduct__c
           );
-          return { ...foundProduct, orderLineItemId: item.Id };
+          return {
+            ...foundProduct,
+            orderLineItemId: item.Id,
+            orderId: item.CustomOrder__c
+          };
         });
-        this.cartProduct = newResult;
+
+        this.cartProduct = {
+          records: newResult,
+          totalPrice: this.calculateTotalPrice(newResult)
+        };
         this.cartProductCount = result.totalItemCount;
       })
       .catch((error) => (this.error = error));
@@ -58,7 +66,6 @@ export default class Main extends LightningElement {
   }
 
   handleClickedCartProduct(e) {
-    console.log(JSON.stringify(e.detail));
     this.clickedProductId = e.detail.Id;
     this.clickedOrderLineId = e.detail.orderLineItemId;
     this.products.forEach((item) => {
@@ -72,21 +79,35 @@ export default class Main extends LightningElement {
   handleAddToCart() {
     this.products.forEach((item) => {
       if (item.Id === this.clickedProductId) {
-        addOrderItems({ item: item });
-        this.cartProductCount = this.cartProduct.length;
-        // eslint-disable-next-line no-alert
-        alert("product added to the cart");
-        this.closeModal();
+        if (this.cartProduct.records.length === 0) {
+          createNewOrder()
+            .then((result) => {
+              addOrderItems({ item: item, orderId: result });
+            })
+            .catch((error) => (this.error = error));
+          // eslint-disable-next-line no-alert
+          alert("product added to the cart");
+          this.closeModal();
+        } else {
+          const orderId = this.cartProduct.records[0].orderId;
+          addOrderItems({ item: item, orderId: orderId });
+          this.cartProductCount = this.cartProduct.records.length;
+          // eslint-disable-next-line no-alert
+          alert("product added to the cart");
+          this.closeModal();
+        }
       }
     });
+    this.productListQuery(this.filters);
   }
 
-  handleRemoveFromCart() {
-    console.log("I reached here", this.clickedOrderLineId);
-    deleteOrderItems({ orderId: this.clickedOrderLineId });
+  handleRemoveFromCart(e) {
+    const orderLineItemId = e.detail.orderLineItemId;
+    deleteOrderItems({ orderLineItemId: orderLineItemId });
     // eslint-disable-next-line no-alert
     alert("product removed from the cart");
     this.closeModal();
+    this.productListQuery(this.filters);
   }
 
   handleBrandChange(e) {
@@ -122,5 +143,17 @@ export default class Main extends LightningElement {
   toogleCart() {
     this.isCartOpen = !this.isCartOpen;
     this.productListQuery(this.filters);
+  }
+
+  calculateTotalPrice(cartItems) {
+    let sum = 0;
+    cartItems.forEach((item) => {
+      sum += Number(item.price__c);
+    });
+    return sum;
+  }
+
+  handleMakeOrder() {
+    console.log("this is amke an order");
   }
 }

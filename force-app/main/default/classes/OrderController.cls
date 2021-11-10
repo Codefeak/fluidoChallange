@@ -2,7 +2,20 @@ public class OrderController {
   static Integer PAGE_SIZE = 9;
 
   @AuraEnabled
-  public static void addOrderItems(CustomProduct__c item) {
+  public static void addOrderItems(CustomProduct__c item, Id orderId) {
+    try {
+      Order_Line_Item__c orderItemLine = new Order_Line_Item__c(
+        CustomOrder__c = orderId,
+        CustomProduct__c = item.Id
+      );
+      insert orderItemLine;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  @AuraEnabled
+  public static Id createNewOrder() {
     try {
       Id accId = [
         SELECT contact.AccountId
@@ -12,15 +25,12 @@ public class OrderController {
       .Id;
       CustomOrder__c order = new CustomOrder__c(Account__c = accId);
       insert order;
-      Order_Line_Item__c orderItemLine = new Order_Line_Item__c(
-        CustomOrder__c = order.Id,
-        CustomProduct__c = item.Id
-      );
-      insert orderItemLine;
+      return order.Id;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
   }
+
   @AuraEnabled
   public static PagedResult getOrderItems() {
     try {
@@ -47,15 +57,14 @@ public class OrderController {
   }
 
   @AuraEnabled
-  public static void deleteOrderItems(Id orderId) {
+  public static void deleteOrderItems(Id orderLineItemId) {
     try {
       Order_Line_Item__c[] itemToBeDeleted = [
-        SELECT Id, CustomOrder__c
+        SELECT Id
         FROM Order_Line_Item__c
-        WHERE Id = :orderId
+        WHERE Id = :orderLineItemId
       ];
-      system.debug(itemToBeDeleted);
-      // delete itemToBeDeleted;
+      delete itemToBeDeleted;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }

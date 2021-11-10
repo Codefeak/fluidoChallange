@@ -10,6 +10,8 @@
           <c-cart
             cart-item-from-parent={cartProduct}
             onproductclicked={handleClickedCartProduct}
+            onremovefromcart={handleRemoveFromCart}
+            onmakeorder={handleMakeOrder}
           ></c-cart>
           <template if:true={isModalOpen}>
             <section
@@ -46,13 +48,6 @@
                     title="Cancel"
                   >
                     Cancel
-                  </button>
-                  <button
-                    class="slds-button slds-button_brand"
-                    onclick={handleRemoveFromCart}
-                    title="RemoveFromCart"
-                  >
-                    Remove From Cart
                   </button>
                 </footer>
               </div>

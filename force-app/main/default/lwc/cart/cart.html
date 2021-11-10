@@ -7,47 +7,63 @@
       >
         <div
           class="
-            slds-grid slds-wrap slds-col
-            slds-size_8-of-12
-            slds-medium-size_8-of-12
-            slds-large-size_8-of-12
-            slds-p-horizontal_medium
+            slds-grid slds-wrap
+            slds-p-vertical_x-small
+            slds-size_10-of-12
+            slds-medium-size_11-of-12
+            slds-large-size_11-of-12
           "
         >
-          <strong>Product</strong>
-        </div>
-        <div
-          class="
-            slds-col
-            slds-size_2-of-12
-            slds-medium-size_2-of-12
-            slds-large-size_2-of-12
-            slds-align_absolute-center
-          "
-        >
-          <strong> QTY </strong>
-        </div>
-        <div
-          class="
-            slds-col
-            slds-size_2-of-12
-            slds-medium-size_2-of-12
-            slds-large-size_2-of-12
-            slds-align_absolute-center
-          "
-        >
-          <strong> AMT </strong>
+          <div
+            class="
+              slds-grid slds-wrap slds-col
+              slds-size_8-of-12
+              slds-medium-size_8-of-12
+              slds-large-size_8-of-12
+              slds-p-horizontal_medium
+            "
+          >
+            <strong>Product</strong>
+          </div>
+          <!-- <div
+        class="
+          slds-col
+          slds-size_2-of-12
+          slds-medium-size_2-of-12
+          slds-large-size_2-of-12
+          slds-align_absolute-center
+        "
+      >
+        <strong> QTY </strong>
+      </div> -->
+          <div
+            class="
+              slds-col
+              slds-size_2-of-12
+              slds-medium-size_2-of-12
+              slds-large-size_2-of-12
+              slds-align_absolute-center
+            "
+          >
+            <strong> AMT </strong>
+          </div>
         </div>
       </div>
     </div>
     <div class="slds-grid slds-grid_vertical">
-      <template for:each={cartItemFromParent} for:item="product">
-        <a
-          key={product.Id}
-          data-value={product.orderLineItemId}
-          onclick={handleOnClick}
-        >
-          <div class="slds-grid slds-wrap slds-gutters slds-p-vertical_x-small">
+      <template for:each={cartItemFromParent.records} for:item="product">
+        <div key={product.Id} class="slds-grid">
+          <a
+            class="
+              slds-grid slds-wrap
+              slds-p-vertical_x-small
+              slds-size_10-of-12
+              slds-medium-size_11-of-12
+              slds-large-size_11-of-12
+            "
+            data-value={product.orderLineItemId}
+            onclick={handleOnClick}
+          >
             <div
               class="
                 slds-grid slds-wrap slds-col
@@ -82,7 +98,7 @@
                 {product.Name}
               </h3>
             </div>
-            <div
+            <!-- <div
               class="
                 slds-col
                 slds-size_2-of-12
@@ -92,7 +108,7 @@
               "
             >
               QTY
-            </div>
+            </div> -->
             <div
               class="
                 slds-col
@@ -110,8 +126,27 @@
                 maximum-fraction-digits="0"
               ></lightning-formatted-number>
             </div>
+          </a>
+          <div
+            class="
+              slds-col
+              slds-size_2-of-12
+              slds-medium-size_1-of-12
+              slds-large-size_1-of-12
+              slds-align_absolute-center
+            "
+          >
+            <lightning-button-icon
+              icon-name="utility:delete"
+              alternative-text="Delete Item"
+              class="slds-m-left_small"
+              size="medium"
+              title="Delete Item"
+              data-value={product.orderLineItemId}
+              onclick={handleOnClickDelete}
+            ></lightning-button-icon>
           </div>
-        </a>
+        </div>
       </template>
     </div>
     <div class="slds-grid slds-grid_vertical">
@@ -122,8 +157,8 @@
           class="
             slds-grid slds-wrap slds-col
             slds-size_8-of-12
-            slds-medium-size_8-of-12
-            slds-large-size_8-of-12
+            slds-medium-size_6-of-12
+            slds-large-size_6-of-12
             slds-p-horizontal_medium
           "
         ></div>
@@ -147,7 +182,24 @@
             slds-align_absolute-center
           "
         >
-          <strong> Total € </strong>
+          <strong> {cartItemFromParent.totalPrice}€ </strong>
+        </div>
+        <div
+          class="
+            slds-col
+            slds-size_2-of-12
+            slds-medium-size_2-of-12
+            slds-large-size_2-of-12
+            slds-align_absolute-center
+          "
+        >
+          <lightning-button
+            variant="brand"
+            label="Make an order"
+            title="Primary action"
+            onclick={handleMakeOrder}
+            class="slds-m-left_x-small"
+          ></lightning-button>
         </div>
       </div>
     </div>
