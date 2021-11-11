@@ -23,6 +23,7 @@ export default class Main extends LightningElement {
   cartProductCount;
   activeOrderId;
   viewOrderHistory = false;
+  historyOrder;
 
   connectedCallback() {
     this.productListQuery(this.filters);

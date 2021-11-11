@@ -80,6 +80,7 @@ public class OrderController {
       ];
       for (CustomOrder__c item : orderToMake) {
         item.OrderMade__c = true;
+        item.OrderMadeTimestamp__c = datetime.now();
       }
       update orderToMake;
     } catch (Exception e) {
@@ -96,6 +97,31 @@ public class OrderController {
         WHERE OrderMade__c = FALSE
       ];
       return orderToMake.Id;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  @AuraEnabled
+  public static PagedResult getOrderHistory() {
+    try {
+      Integer pageNumber = 1;
+      String key, size, whereClause = 'WHERE OrderMade__c = true';
+      Integer pageSize = OrderController.PAGE_SIZE;
+      Integer offset = (pageNumber - 1) * pageSize;
+      PagedResult result = new PagedResult();
+      result.pageSize = pageSize;
+      result.pageNumber = pageNumber;
+      result.totalItemCount = Database.countQuery(
+        'SELECT count() FROM CustomOrder__c ' + whereClause
+      );
+      result.records = Database.query(
+        'SELECT Id, OrderMade__c, OrderMadeTimestamp__c FROM CustomOrder__c ' +
+        whereClause +
+        ' WITH SECURITY_ENFORCED' +
+        ' LIMIT :pageSize OFFSET :offset'
+      );
+      return result;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
