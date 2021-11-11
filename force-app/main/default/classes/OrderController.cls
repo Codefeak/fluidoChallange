@@ -32,10 +32,10 @@ public class OrderController {
   }
 
   @AuraEnabled
-  public static PagedResult getOrderItems() {
+  public static PagedResult getOrderItems(Id orderId) {
     try {
       Integer pageNumber = 1;
-      String key, size, whereClause = '';
+      String key, size, whereClause = 'WHERE CustomOrder__c = :orderId';
       Integer pageSize = OrderController.PAGE_SIZE;
       Integer offset = (pageNumber - 1) * pageSize;
       PagedResult result = new PagedResult();
@@ -65,6 +65,37 @@ public class OrderController {
         WHERE Id = :orderLineItemId
       ];
       delete itemToBeDeleted;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  @AuraEnabled
+  public static void makeOrder(Id orderId) {
+    try {
+      List<CustomOrder__c> orderToMake = [
+        SELECT Id
+        FROM CustomOrder__c
+        WHERE Id = :orderId
+      ];
+      for (CustomOrder__c item : orderToMake) {
+        item.OrderMade__c = true;
+      }
+      update orderToMake;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  @AuraEnabled
+  public static Id getActiveOrder() {
+    try {
+      CustomOrder__c orderToMake = [
+        SELECT Id
+        FROM CustomOrder__c
+        WHERE OrderMade__c = FALSE
+      ];
+      return orderToMake.Id;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }

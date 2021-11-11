@@ -4,6 +4,8 @@ import getOrderItems from "@salesforce/apex/OrderController.getOrderItems";
 import deleteOrderItems from "@salesforce/apex/OrderController.deleteOrderItems";
 import addOrderItems from "@salesforce/apex/OrderController.addOrderItems";
 import createNewOrder from "@salesforce/apex/OrderController.createNewOrder";
+import makeOrder from "@salesforce/apex/OrderController.makeOrder";
+import getActiveOrder from "@salesforce/apex/OrderController.getActiveOrder";
 export default class Main extends LightningElement {
   error;
   price = 1000;
@@ -19,6 +21,7 @@ export default class Main extends LightningElement {
   clickedOrderLineId;
   cartProduct;
   cartProductCount;
+  activeOrderId;
 
   connectedCallback() {
     this.productListQuery(this.filters);
@@ -31,7 +34,12 @@ export default class Main extends LightningElement {
         this.products = result.records;
       })
       .catch((error) => (this.error = error));
-    getOrderItems()
+    getActiveOrder()
+      .then((result) => {
+        this.activeOrderId = result;
+      })
+      .catch((error) => (this.error = error));
+    getOrderItems({ orderId: this.activeOrderId })
       .then((result) => {
         const newRecords = result.records;
         const newResult = newRecords.map((item) => {
@@ -154,6 +162,11 @@ export default class Main extends LightningElement {
   }
 
   handleMakeOrder() {
-    console.log("this is amke an order");
+    const orderId = this.cartProduct.records[0].orderId;
+    makeOrder({ orderId: orderId });
+    this.activeOrderId = undefined;
+    // eslint-disable-next-line no-alert
+    alert("Order successfully made");
+    this.productListQuery(this.filters);
   }
 }
