@@ -2,59 +2,70 @@
 <template>
   <div class="slds-card">
     <div class="slds-modal__content slds-border_bottom">
-      <c-header ontogglecart={toogleCart} is-cart-open={isCartOpen}></c-header>
+      <c-header
+        ontogglecart={toogleCart}
+        onopenorderhistory={openOrderHistory}
+        is-cart-open={isCartOpen}
+      ></c-header>
     </div>
     <template if:true={isCartOpen}>
-      <lightning-layout>
-        <lightning-layout-item size="12">
-          <c-cart
-            cart-item-from-parent={cartProduct}
-            onproductclicked={handleClickedCartProduct}
-            onremovefromcart={handleRemoveFromCart}
-            onmakeorder={handleMakeOrder}
-          ></c-cart>
-          <template if:true={isModalOpen}>
-            <section
-              role="dialog"
-              tabindex="-1"
-              aria-labelledby="modal-heading-01"
-              aria-modal="true"
-              aria-describedby="modal-content-id-1"
-              class="slds-modal slds-fade-in-open slds-align_absolute-center"
-            >
-              <div class="slds-modal__container custom-modal_container">
-                <header class="slds-modal__footer">
-                  <h2
-                    id="modal-heading-01"
-                    class="
-                      slds-text-heading_medium
-                      slds-hyphenate
-                      slds-float_left
-                    "
+      <template if:false={viewOrderHistory}>
+        <lightning-layout>
+          <lightning-layout-item size="12">
+            <c-cart
+              cart-item-from-parent={cartProduct}
+              onproductclicked={handleClickedCartProduct}
+              onremovefromcart={handleRemoveFromCart}
+              onmakeorder={handleMakeOrder}
+            ></c-cart>
+            <template if:true={isModalOpen}>
+              <section
+                role="dialog"
+                tabindex="-1"
+                aria-labelledby="modal-heading-01"
+                aria-modal="true"
+                aria-describedby="modal-content-id-1"
+                class="slds-modal slds-fade-in-open slds-align_absolute-center"
+              >
+                <div class="slds-modal__container custom-modal_container">
+                  <header class="slds-modal__footer">
+                    <h2
+                      id="modal-heading-01"
+                      class="
+                        slds-text-heading_medium
+                        slds-hyphenate
+                        slds-float_left
+                      "
+                    >
+                      {clickedProduct.Name}
+                    </h2>
+                  </header>
+                  <div
+                    class="slds-modal__content slds-p-around_medium"
+                    id="modal-content-id-1"
                   >
-                    {clickedProduct.Name}
-                  </h2>
-                </header>
-                <div
-                  class="slds-modal__content slds-p-around_medium"
-                  id="modal-content-id-1"
-                >
-                  <c-product product-from-parent={clickedProduct}></c-product>
+                    <c-product product-from-parent={clickedProduct}></c-product>
+                  </div>
+                  <footer class="slds-modal__footer">
+                    <button
+                      class="slds-button slds-button_neutral"
+                      onclick={closeModal}
+                      title="Cancel"
+                    >
+                      Cancel
+                    </button>
+                  </footer>
                 </div>
-                <footer class="slds-modal__footer">
-                  <button
-                    class="slds-button slds-button_neutral"
-                    onclick={closeModal}
-                    title="Cancel"
-                  >
-                    Cancel
-                  </button>
-                </footer>
-              </div>
-            </section>
-          </template>
-        </lightning-layout-item>
-      </lightning-layout>
+              </section>
+            </template>
+          </lightning-layout-item>
+        </lightning-layout>
+      </template>
+      <template if:true={viewOrderHistory}>
+        <div class="slds-modal__content slds-m-top_medium slds-border_bottom">
+          <c-order-history onviewcartitems={openCart}></c-order-history>
+        </div>
+      </template>
     </template>
     <template if:false={isCartOpen}>
       <lightning-layout>

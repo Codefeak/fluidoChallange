@@ -22,6 +22,7 @@ export default class Main extends LightningElement {
   cartProduct;
   cartProductCount;
   activeOrderId;
+  viewOrderHistory = false;
 
   connectedCallback() {
     this.productListQuery(this.filters);
@@ -152,6 +153,20 @@ export default class Main extends LightningElement {
     this.isCartOpen = !this.isCartOpen;
     this.productListQuery(this.filters);
   }
+  openCart() {
+    this.isCartOpen = true;
+    this.viewOrderHistory = false;
+  }
+
+  openOrderHistory() {
+    this.isCartOpen = true;
+    this.viewOrderHistory = true;
+  }
+
+  closeOrderHistory() {
+    this.isCartOpen = false;
+    this.viewOrderHistory = false;
+  }
 
   calculateTotalPrice(cartItems) {
     let sum = 0;
@@ -168,5 +183,6 @@ export default class Main extends LightningElement {
     // eslint-disable-next-line no-alert
     alert("Order successfully made");
     this.productListQuery(this.filters);
+    this.viewOrderHistory = true;
   }
 }

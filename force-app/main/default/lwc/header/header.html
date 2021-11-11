@@ -15,25 +15,36 @@
       "
     >
       <template if:true={isCartOpen}>
-        <lightning-button-icon
-          icon-name="standard:products"
-          alternative-text="Product List"
-          class="slds-m-left_small"
-          size="medium"
-          title="Product List"
-          onclick={handleCartClick}
-        ></lightning-button-icon>
+        <a onclick={handleCartClick}>
+          <lightning-icon
+            icon-name="standard:products"
+            alternative-text="Product List"
+            class="slds-m-left_small"
+            size="medium"
+            title="Product List"
+          ></lightning-icon>
+        </a>
       </template>
       <template if:false={isCartOpen}>
-        <lightning-button-icon
-          icon-name="standard:webcart"
-          alternative-text="View Cart"
+        <a onclick={handleCartClick}>
+          <lightning-icon
+            icon-name="standard:webcart"
+            alternative-text="View Cart"
+            class="slds-m-left_small"
+            size="medium"
+            title="View Cart"
+          ></lightning-icon>
+        </a>
+      </template>
+      <a onclick={handleOrderHistoryClick}>
+        <lightning-icon
+          icon-name="standard:orders"
+          alternative-text="View Order History"
           class="slds-m-left_small"
           size="medium"
-          title="View Cart"
-          onclick={handleCartClick}
-        ></lightning-button-icon>
-      </template>
+          title="View Order History"
+        ></lightning-icon>
+      </a>
     </div>
   </div>
 </template>

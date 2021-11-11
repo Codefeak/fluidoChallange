@@ -8,4 +8,8 @@ export default class Header extends LightningElement {
   handleCartClick() {
     this.dispatchEvent(new CustomEvent("togglecart"));
   }
+
+  handleOrderHistoryClick() {
+    this.dispatchEvent(new CustomEvent("openorderhistory"));
+  }
 }
