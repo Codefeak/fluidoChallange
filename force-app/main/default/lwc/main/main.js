@@ -89,7 +89,7 @@ export default class Main extends LightningElement {
   handleAddToCart() {
     this.products.forEach((item) => {
       if (item.Id === this.clickedProductId) {
-        if (this.cartProduct.records.length === 0) {
+        if (this.activeOrderId === undefined) {
           createNewOrder()
             .then((result) => {
               addOrderItems({ item: item, orderId: result });
@@ -99,8 +99,7 @@ export default class Main extends LightningElement {
           alert("product added to the cart");
           this.closeModal();
         } else {
-          const orderId = this.cartProduct.records[0].orderId;
-          addOrderItems({ item: item, orderId: orderId });
+          addOrderItems({ item: item, orderId: this.activeOrderId });
           this.cartProductCount = this.cartProduct.records.length;
           // eslint-disable-next-line no-alert
           alert("product added to the cart");
