@@ -39,7 +39,7 @@ public class ProductController {
       if (!String.isEmpty(filters.searchKey)) {
         key = '%' + filters.searchKey + '%';
         criteria.add(
-          'Name LIKE :key OR category__c LIKE :key OR gender__c LIKE :key OR color__c LIKE :key OR brand__c LIKE :key'
+          '(Name LIKE :key OR category__c LIKE :key OR gender__c LIKE :key OR color__c LIKE :key OR brand__c LIKE :key)'
         );
       }
       if (filters.price >= 0) {
