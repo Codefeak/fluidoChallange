@@ -153,7 +153,7 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>CustomProduct</label>
+    <label>Product</label>
     <nameField>
         <label>Product Name</label>
         <type>Text</type>

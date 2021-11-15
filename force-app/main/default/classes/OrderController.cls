@@ -2,11 +2,11 @@ public class OrderController {
   static Integer PAGE_SIZE = 9;
 
   @AuraEnabled
-  public static void addOrderItems(CustomProduct__c item, Id orderId) {
+  public static void addOrderItems(Id productId, Id orderId) {
     try {
       Order_Line_Item__c orderItemLine = new Order_Line_Item__c(
         CustomOrder__c = orderId,
-        CustomProduct__c = item.Id
+        Product__c = productId
       );
       insert orderItemLine;
     } catch (Exception e) {
@@ -45,7 +45,7 @@ public class OrderController {
         'SELECT count() FROM Order_Line_Item__c ' + whereClause
       );
       result.records = Database.query(
-        'SELECT Id, CustomOrder__c, CustomProduct__c FROM Order_Line_Item__c ' +
+        'SELECT Id, CustomOrder__c, Product__c FROM Order_Line_Item__c ' +
         whereClause +
         ' WITH SECURITY_ENFORCED' +
         ' LIMIT :pageSize OFFSET :offset'

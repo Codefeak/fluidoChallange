@@ -1,7 +1,7 @@
 public class ProductLists {
   @AuraEnabled(Cacheable=true)
-  public static List<CustomProduct__c> viewAllProducts() {
-    List<CustomProduct__c> listOfProducts = [
+  public static List<Product__c> viewAllProducts() {
+    List<Product__c> listOfProducts = [
       SELECT
         price__c,
         category__c,
@@ -14,7 +14,7 @@ public class ProductLists {
         color__c,
         size__c,
         imageUrl__c
-      FROM CustomProduct__c
+      FROM Product__c
       LIMIT 100
     ];
     return listOfProducts;

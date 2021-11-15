@@ -46,7 +46,7 @@ export default class Main extends LightningElement {
         const newRecords = result.records;
         const newResult = newRecords.map((item) => {
           const foundProduct = this.products.find(
-            (ele) => ele.Id === item.CustomProduct__c
+            (ele) => ele.Id === item.Product__c
           );
           return {
             ...foundProduct,
@@ -92,14 +92,14 @@ export default class Main extends LightningElement {
         if (this.activeOrderId === undefined) {
           createNewOrder()
             .then((result) => {
-              addOrderItems({ item: item, orderId: result });
+              addOrderItems({ productId: item.Id, orderId: result });
             })
             .catch((error) => (this.error = error));
           // eslint-disable-next-line no-alert
           alert("product added to the cart");
           this.closeModal();
         } else {
-          addOrderItems({ item: item, orderId: this.activeOrderId });
+          addOrderItems({ productId: item.Id, orderId: this.activeOrderId });
           this.cartProductCount = this.cartProduct.records.length;
           // eslint-disable-next-line no-alert
           alert("product added to the cart");
@@ -124,7 +124,6 @@ export default class Main extends LightningElement {
     this.filters.brand = this.brand;
     if (this.filters.brand.length <= 0) {
       delete this.filters.brand;
-      this.productListQuery(this.filters);
     }
     this.productListQuery(this.filters);
   }

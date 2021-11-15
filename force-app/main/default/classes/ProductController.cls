@@ -21,7 +21,7 @@ public class ProductController {
     public String gender { get; set; }
   }
 
-  @AuraEnabled
+  @AuraEnabled(Cacheable=true)
   public static PagedResult getProducts(Filters filters) {
     Integer pageNumber = 1;
     String key, size, whereClause = '';
@@ -85,15 +85,40 @@ public class ProductController {
     result.pageSize = pageSize;
     result.pageNumber = pageNumber;
     result.totalItemCount = Database.countQuery(
-      'SELECT count() FROM CustomProduct__c ' + whereClause
+      'SELECT count() FROM Product__c ' + whereClause
     );
     result.records = Database.query(
-      'SELECT Id, Name, price__c, color__c, size__c, brand__c, gender__c, width__c, heel_height__c, category__c, imageUrl__c FROM CustomProduct__c ' +
+      'SELECT Id, Name, price__c, color__c, size__c, brand__c, gender__c, width__c, heel_height__c, category__c, imageUrl__c FROM Product__c ' +
       whereClause +
       ' WITH SECURITY_ENFORCED' +
       ' ORDER BY Name LIMIT :pageSize OFFSET :offset'
     );
 
     return result;
+  }
+
+  @AuraEnabled
+  public static Product__c getProduct(Id productId) {
+    try {
+      Product__c result = [
+        SELECT
+          Id,
+          Name,
+          price__c,
+          color__c,
+          size__c,
+          brand__c,
+          gender__c,
+          width__c,
+          heel_height__c,
+          category__c,
+          imageUrl__c
+        FROM Product__c
+        WHERE Id = :productId
+      ];
+      return result;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
   }
 }

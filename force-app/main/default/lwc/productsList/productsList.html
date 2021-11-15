@@ -1,0 +1,35 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <div class="content slds-modal__content slds-p-around_medium">
+    <lightning-layout horizontal-align="space" multiple-rows="true">
+      <template for:each={products} for:item="product">
+        <lightning-layout-item
+          key={product.Id}
+          padding="around-small"
+          alignment-bump="right"
+        >
+          <a data-value={product.Id} onclick={handleProductSelected}>
+            <div class="product-list-container">
+              <lightning-card variant="wide">
+                <img
+                  src={product.imageUrl__c}
+                  class="product-img-thumb slds-align_absolute-center"
+                  alt="Product picture"
+                />
+                <h3 class="slds-align_absolute-center">{product.brand__c}</h3>
+                <h3 class="slds-align_absolute-center">{product.Id}</h3>
+                <lightning-formatted-number
+                  format-style="currency"
+                  currency-code="EUR"
+                  value={product.price__c}
+                  class="price product-price"
+                  maximum-fraction-digits="0"
+                ></lightning-formatted-number>
+              </lightning-card>
+            </div>
+          </a>
+        </lightning-layout-item>
+      </template>
+    </lightning-layout>
+  </div>
+</template>

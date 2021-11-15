@@ -1,0 +1,61 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <div class="slds-grid">
+    <div
+      class="
+        slds-col
+        slds-size_3-of-12
+        slds-medium-size_3-of-12
+        slds-large-size_3-of-12
+      "
+    >
+      <image src={svgURL}></image>
+    </div>
+    <div
+      class="
+        slds-col
+        slds-size_5-of-12
+        slds-medium-size_7-of-12
+        slds-large-size_7-of-12
+      "
+    ></div>
+    <div
+      class="
+        slds-col
+        slds-size_4-of-12
+        slds-medium-size_2-of-12
+        slds-large-size_2-of-12
+        slds-float_right
+        slds-align_absolute-center
+      "
+    >
+      <a onclick={handleOnClickProductList}>
+        <lightning-icon
+          icon-name="standard:products"
+          alternative-text="Product List"
+          class="slds-m-left_small"
+          size="medium"
+          title="Product List"
+        ></lightning-icon>
+      </a>
+      <a onclick={handleOnClickCartView}>
+        <lightning-icon
+          icon-name="standard:webcart"
+          alternative-text="View Cart"
+          class="slds-m-left_small"
+          size="medium"
+          title="View Cart"
+        ></lightning-icon>
+      </a>
+      <a onclick={handleOrderHistoryClick}>
+        <lightning-icon
+          icon-name="standard:orders"
+          alternative-text="View Order History"
+          class="slds-m-left_small"
+          size="medium"
+          title="View Order History"
+        ></lightning-icon>
+      </a>
+    </div>
+  </div>
+</template>
