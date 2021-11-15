@@ -59,7 +59,6 @@ export default class CartView extends LightningElement {
 
   handleMakeOrder() {
     const orderId = this.cartProducts.records[0].orderId;
-    console.log(orderId);
     makeOrder({ orderId: orderId });
     this.showToast(
       "Success",

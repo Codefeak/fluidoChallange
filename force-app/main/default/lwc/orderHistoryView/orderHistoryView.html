@@ -8,135 +8,107 @@
     </h2>
   </header>
   <div class="slds-modal__content">
-    <div class="slds-grid slds-grid_vertical">
+    <div
+      class="
+        slds-grid slds-grid_vertical
+        slds-wrap
+        slds-border_bottom
+        slds-p-vertical_x-small
+      "
+    >
       <div
-        class="slds-grid slds-wrap slds-border_bottom slds-p-vertical_x-small"
-      >
-        <div
-          class="
-            slds-grid slds-wrap
-            slds-p-vertical_x-small
-            slds-size_10-of-12
-            slds-medium-size_11-of-12
-            slds-large-size_11-of-12
-          "
-        >
-          <div
-            class="
-              slds-grid slds-wrap slds-col
-              slds-size_8-of-12
-              slds-medium-size_8-of-12
-              slds-large-size_8-of-12
-              slds-p-horizontal_medium
-            "
-          >
-            <strong>Order ID</strong>
-          </div>
-          <div
-            class="
-              slds-col
-              slds-size_2-of-12
-              slds-medium-size_2-of-12
-              slds-large-size_2-of-12
-              slds-align_absolute-center
-            "
-          >
-            <strong> Ordered Date </strong>
-          </div>
-          <div
-            class="
-              slds-col
-              slds-size_2-of-12
-              slds-medium-size_2-of-12
-              slds-large-size_2-of-12
-              slds-align_absolute-center
-            "
-          >
-            <strong> Delivery Status </strong>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="slds-grid slds-grid_vertical">
-      <!-- <template for:each={orderHistoryItems} for:item="order">
-          <div key={order.Id} class="slds-grid">
-            <div
-              class="
-                slds-grid slds-wrap
-                slds-p-vertical_x-small
-                slds-size_10-of-12
-                slds-medium-size_11-of-12
-                slds-large-size_11-of-12
-              "
-            >
-              <div
-                class="
-                  slds-grid slds-wrap slds-col
-                  slds-size_8-of-12
-                  slds-medium-size_8-of-12
-                  slds-large-size_8-of-12
-                  slds-p-horizontal_medium
-                "
-              >
-                {order.Id}
-              </div>
-              <div
-                class="
-                  slds-col
-                  slds-size_2-of-12
-                  slds-medium-size_2-of-12
-                  slds-large-size_2-of-12
-                  slds-align_absolute-center
-                "
-              >
-                {order.OrderMadeTimestamp__c}
-              </div>
-              <div
-                class="
-                  slds-col
-                  slds-size_2-of-12
-                  slds-medium-size_2-of-12
-                  slds-large-size_2-of-12
-                  slds-align_absolute-center
-                "
-              >
-                Inprogress...
-              </div>
-            </div>
-          </div>
-        </template> -->
-    </div>
-    <div class="slds-grid slds-grid_vertical">
-      <div
-        class="slds-grid slds-wrap slds-border_bottom slds-p-vertical_x-small"
+        class="
+          slds-grid slds-wrap
+          slds-p-vertical_x-small
+          slds-size_12-of-12
+          slds-medium-size_12-of-12
+          slds-large-size_12-of-12
+        "
       >
         <div
           class="
             slds-grid slds-wrap slds-col
-            slds-size_8-of-12
+            slds-size_4-of-12
             slds-medium-size_6-of-12
-            slds-large-size_6-of-12
+            slds-large-size_7-of-12
             slds-p-horizontal_medium
           "
-        ></div>
+        >
+          <strong>Order ID</strong>
+        </div>
         <div
           class="
             slds-col
-            slds-size_2-of-12
+            slds-size_4-of-12
+            slds-medium-size_4-of-12
+            slds-large-size_3-of-12
+            slds-align_absolute-center
+          "
+        >
+          <strong> Ordered Date </strong>
+        </div>
+        <div
+          class="
+            slds-col
+            slds-size_4-of-12
             slds-medium-size_2-of-12
             slds-large-size_2-of-12
             slds-align_absolute-center
           "
         >
-          <lightning-button
-            variant="brand"
-            label="Back to Cart"
-            title="Primary action"
-            onclick={viewCartItems}
-            class="slds-m-left_x-small"
-          ></lightning-button>
+          <strong> Delivery Status </strong>
         </div>
       </div>
+    </div>
+    <div class="slds-grid slds-grid_vertical">
+      <template if:true={orderHistoryItems}>
+        <template for:each={orderHistoryItems} for:item="order">
+          <div
+            key={order.Id}
+            class="
+              slds-grid slds-wrap
+              slds-p-vertical_x-small
+              slds-size_12-of-12
+              slds-medium-size_12-of-12
+              slds-large-size_12-of-12
+            "
+          >
+            <div
+              class="
+                slds-grid slds-wrap slds-col
+                slds-size_4-of-12
+                slds-medium-size_6-of-12
+                slds-large-size_7-of-12
+                slds-p-horizontal_medium
+              "
+            >
+              {order.Id}
+            </div>
+            <div
+              class="
+                slds-col
+                slds-size_4-of-12
+                slds-medium-size_4-of-12
+                slds-large-size_3-of-12
+                slds-align_absolute-center
+              "
+            >
+              {order.OrderMadeTimestamp__c}
+            </div>
+            <div
+              class="
+                slds-col
+                slds-size_2-of-12
+                slds-medium-size_2-of-12
+                slds-large-size_2-of-12
+                slds-align_absolute-center
+              "
+            >
+              Inprogress...
+            </div>
+          </div>
+        </template>
+      </template>
     </div>
   </div>
 </template>
