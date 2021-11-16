@@ -5,6 +5,5 @@
     <masterLabel>Product View</masterLabel>
     <targets>
         <target>lightning__AppPage</target>
-        <target>lightning__RecordPage</target>
     </targets>
 </LightningComponentBundle>
