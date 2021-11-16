@@ -26,15 +26,19 @@ export default class ProductFilter extends LightningElement {
     if (this.filters.brand.length <= 0) {
       delete this.filters.brand;
     }
+    this.delayedFireFilterChangeEvent();
   }
 
   handleOnPriceChange(e) {
     this.filters.price = e.target.value;
+    this.delayedFireFilterChangeEvent();
   }
 
   handleOnSizeChange(e) {
-    this.size = e.value;
-    this.filters.size = e.value;
+    console.log(e.detail.value);
+    this.size = e.detail.value;
+    this.filters.size = e.detail.value;
+    this.delayedFireFilterChangeEvent();
   }
 
   delayedFireFilterChangeEvent() {
